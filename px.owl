@@ -1,16 +1,1023 @@
-@prefix : <https://github.com/PX-RDF/ontology/blob/master/px.owl#> .
+@prefix : <https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sio: <http://semanticscience.org/resource/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://github.com/PX-RDF/ontology/blob/master/px.owl> .
+@base <https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl> .
 
-<https://github.com/PX-RDF/ontology/blob/master/px.owl> rdf:type owl:Ontology ;
-                                                        
-                                                        <http://purl.org/dc/terms/license> "http://creativecommons.org/publicdomain/zero/1.0/"^^xsd:anyURI ;
-                                                        
-                                                        owl:imports <http://semanticscience.org/ontology/sio/v1.30.0/sio-release.owl> .
+<https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl> rdf:type owl:Ontology ;
+                                                                  
+                                                                  rdfs:label "ProteomeXchange RDF Ontology" ;
+                                                                  
+                                                                  owl:versionInfo 0.01 ;
+                                                                  
+                                                                  dc:creator "Shin Kawano" ;
+                                                                  
+                                                                  dc:description "ProteomeXchange RDF ontology" ;
+                                                                  
+                                                                  dct:license <http://creativecommons.org/publicdomain/zero/1.0/> ;
+                                                                  
+                                                                  owl:imports <http://semanticscience.org/ontology/sio/v1.30.0/sio-release.owl> .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#additionalInformation
+
+:additionalInformation rdf:type owl:ObjectProperty ;
+                       
+                       rdfs:label "additional information" ;
+                       
+                       dc:description "additional information describes a place for all additional information that may be added to the broadcast message and that could not be fit into another location. Here should also go references to other ProteomeXchange submissions." ;
+                       
+                       rdfs:range :AdditionalInformationType ;
+                       
+                       rdfs:domain :ProteomeXchangeDatasetType ;
+                       
+                       rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#annotationList
+
+:annotationList rdf:type owl:ObjectProperty ;
+                
+                rdfs:label "annotation list" ;
+                
+                dc:description "annotation list descibes any additional annotation of the record/experiment that the submitter/generator of the message deems important enough to announce." ;
+                
+                rdfs:range :AdditionalInformationType ;
+                
+                rdfs:domain :RepositoryRecordType ;
+                
+                rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#changeLog
+
+:changeLog rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "change log" ;
+           
+           dc:description "change log describes the change log message to record what changes and updates were made to ProteomeXchange dataset for a revised announcement." ;
+           
+           rdfs:range :ChangeLogType ;
+           
+           rdfs:domain :ProteomeXchangeDatasetType ;
+           
+           rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#changeLogEntry
+
+:changeLogEntry rdf:type owl:ObjectProperty ;
+                
+                rdfs:label "change log entry" ;
+                
+                dc:description "change log entry describes A single change log entry giving providing the date on the change, a new version number of the dataset and a description of the change/update." ;
+                
+                rdfs:range :ChangeLogEntryType ;
+                
+                rdfs:subPropertyOf :hasElement ;
+                
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( :ChangeLogType
+                                            :ProteomeXchangeDatasetType
+                                          )
+                            ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#contact
+
+:contact rdf:type owl:ObjectProperty ;
+         
+         rdfs:label "contact" ;
+         
+         dc:description "contact describes contact person related to the ProteomeXchange dataset." ;
+         
+         rdfs:range :ContactType ;
+         
+         rdfs:subPropertyOf :hasElement ;
+         
+         rdfs:domain [ rdf:type owl:Class ;
+                       owl:unionOf ( :ContactListType
+                                     :ProteomeXchangeDatasetType
+                                   )
+                     ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#contactList
+
+:contactList rdf:type owl:ObjectProperty ;
+             
+             rdfs:label "contact iist" ;
+             
+             dc:description "contact list describes the list of contacts related to the ProteomeXchange dataset." ;
+             
+             rdfs:range :ContactListType ;
+             
+             rdfs:domain :ProteomeXchangeDatasetType ;
+             
+             rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#datasetFile
+
+:datasetFile rdf:type owl:ObjectProperty ;
+             
+             rdfs:label "dataset file" ;
+             
+             dc:description "dataset file describes description of the source file, including location and type." ;
+             
+             rdfs:range :DatasetFileType ;
+             
+             rdfs:subPropertyOf :hasElement ;
+             
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( :DatasetFileListType
+                                         :ProteomeXchangeDatasetType
+                                       )
+                         ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#datasetFileList
+
+:datasetFileList rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:label "dataset file list" ;
+                 
+                 dc:description "dataset file list describes the list of ALL files comprising this ProteomeXchange submission." ;
+                 
+                 rdfs:range :DatasetFileListType ;
+                 
+                 rdfs:domain :ProteomeXchangeDatasetType ;
+                 
+                 rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#datasetIdentifier
+
+:datasetIdentifier rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:label "dataset identifier" ;
+                   
+                   dc:description "dataset identifier describes An identifier associated with this dataset, defined by CV term." ;
+                   
+                   rdfs:range :DatasetIdentifierType ;
+                   
+                   rdfs:subPropertyOf :hasElement ;
+                   
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( :DatasetIdentifierListType
+                                               :ProteomeXchangeDatasetType
+                                             )
+                               ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#datasetIdentifierList
+
+:datasetIdentifierList rdf:type owl:ObjectProperty ;
+                       
+                       rdfs:label "dataset identifier list" ;
+                       
+                       dc:description "dataset identifier list describes the list of identifiers associated with this dataset, not just the PXD identifier, but possibly DOIs and other identifiers." ;
+                       
+                       rdfs:range :DatasetIdentifierListType ;
+                       
+                       rdfs:domain :ProteomeXchangeDatasetType ;
+                       
+                       rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#datasetOrigin
+
+:datasetOrigin rdf:type owl:ObjectProperty ;
+               
+               rdfs:label "dataset origin" ;
+               
+               dc:description "dataset origin describes whether this is an original dataset or is a re-interpretation of a previous ProteomeXchange dataset." ;
+               
+               rdfs:range :DatasetOriginType ;
+               
+               rdfs:subPropertyOf :hasElement ;
+               
+               rdfs:domain [ rdf:type owl:Class ;
+                             owl:unionOf ( :DatasetOriginListType
+                                           :ProteomeXchangeDatasetType
+                                         )
+                           ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#datasetOriginList
+
+:datasetOriginList rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:label "dataset origin list" ;
+                   
+                   dc:description "dataset origin list describes the list of the origins of this dataset." ;
+                   
+                   rdfs:range :DatasetOriginListType ;
+                   
+                   rdfs:domain :ProteomeXchangeDatasetType ;
+                   
+                   rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#datasetSummary
+
+:datasetSummary rdf:type owl:ObjectProperty ;
+                
+                rdfs:label "dataset summary" ;
+                
+                dc:description "dataset summary describes broad description of the dataset being announced, inlcuding a title, abstract, review level, etc." ;
+                
+                rdfs:range :DatasetSummaryType ;
+                
+                rdfs:domain :ProteomeXchangeDatasetType ;
+                
+                rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#fullDatasetLink
+
+:fullDatasetLink rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:label "full dataset link" ;
+                 
+                 dc:description "full dataset link describes a single link to the full dataset." ;
+                 
+                 rdfs:range :FullDatasetLinkType ;
+                 
+                 rdfs:subPropertyOf :hasElement ;
+                 
+                 rdfs:domain [ rdf:type owl:Class ;
+                               owl:unionOf ( :FullDatasetLinkListType
+                                             :ProteomeXchangeDatasetType
+                                           )
+                             ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#fullDatasetLinkList
+
+:fullDatasetLinkList rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:label "full dataset link list" ;
+                     
+                     dc:description "full dataset link list describes 	the list of links to the complete ProteomeXchange dataset." ;
+                     
+                     rdfs:range :FullDatasetLinkListType ;
+                     
+                     rdfs:domain :ProteomeXchangeDatasetType ;
+                     
+                     rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#hasAttribute
+
+:hasAttribute rdf:type owl:ObjectProperty ;
+              
+              rdfs:label "has attribute" .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#hasElement
+
+:hasElement rdf:type owl:ObjectProperty ;
+            
+            rdfs:label "has element" .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#hostingRepository
+
+:hostingRepository rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:label "hosting repository" ;
+                   
+                   dc:description "The hosting repository that handled this dataset and that prepared this ProteomeXchange message." ;
+                   
+                   rdfs:range :HostingRepositoryType ;
+                   
+                   rdfs:subPropertyOf :hasAttribute ;
+                   
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( :DatasetSummaryType
+                                               :ProteomeXchangeDatasetType
+                                               :RepositoryRecordType
+                                             )
+                               ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#instrument
+
+:instrument rdf:type owl:ObjectProperty ;
+            
+            rdfs:label "instrument" ;
+            
+            dc:description "instrument describes instrument on which the data has been generated." ;
+            
+            rdfs:range :InstrumentType ;
+            
+            rdfs:subPropertyOf :hasElement ;
+            
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( :InstrumentListType
+                                        :ProteomeXchangeDatasetType
+                                      )
+                        ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#instrumentList
+
+:instrumentList rdf:type owl:ObjectProperty ;
+                
+                rdfs:label "instrument list" ;
+                
+                dc:description "instrument list describes the list of instruments on which the data generation was performed." ;
+                
+                rdfs:range :InstrumentListType ;
+                
+                rdfs:domain :ProteomeXchangeDatasetType ;
+                
+                rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#instrumentRef
+
+:instrumentRef rdf:type owl:ObjectProperty ;
+               
+               rdfs:label "instrument ref" ;
+               
+               dc:description "instrument ref describes container for a reference to the id of an Instrument within this submission" ;
+               
+               rdfs:range :RefType ;
+               
+               rdfs:domain :RepositoryRecordType ;
+               
+               rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#keyword
+
+:keyword rdf:type owl:ObjectProperty ;
+         
+         rdfs:label "keyword" ;
+         
+         dc:description "keyword describes keywords defined by controlled vocabulary or free text categorised by a controlled vocabolary term (e.g. 'journal article keyword', 'submitter keyword' or 'curator keyword')." ;
+         
+         rdfs:range :KeywordType ;
+         
+         rdfs:subPropertyOf :hasElement ;
+         
+         rdfs:domain [ rdf:type owl:Class ;
+                       owl:unionOf ( :KeywordListType
+                                     :ProteomeXchangeDatasetType
+                                   )
+                     ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#keywordList
+
+:keywordList rdf:type owl:ObjectProperty ;
+             
+             rdfs:label "keyword list" ;
+             
+             dc:description "keyword list describes keywords list defined by controlled vocabulary or free text categorised by a controlled vocabolary term (e.g. 'journal article keyword', 'submitter keyword' or 'curator keyword')." ;
+             
+             rdfs:range :KeywordListType ;
+             
+             rdfs:domain :ProteomeXchangeDatasetType ;
+             
+             rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#modification
+
+:modification rdf:type owl:ObjectProperty ;
+              
+              rdfs:label "modification" ;
+              
+              dc:description "modification describes the amino acid mass modifications caused or considered." ;
+              
+              rdfs:range :ModificationType ;
+              
+              rdfs:subPropertyOf :hasElement ;
+              
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( :ModificationListType
+                                          :ProteomeXchangeDatasetType
+                                          :RepositoryRecordType
+                                        )
+                          ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#modificationList
+
+:modificationList rdf:type owl:ObjectProperty ;
+                  
+                  rdfs:label "modification list" ;
+                  
+                  dc:description "modification list describes the list of amino acid mass modifications caused or considered." ;
+                  
+                  rdfs:range :ModificationListType ;
+                  
+                  rdfs:subPropertyOf :hasElement ;
+                  
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( :ProteomeXchangeDatasetType
+                                              :RepositoryRecordType
+                                            )
+                              ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#publication
+
+:publication rdf:type owl:ObjectProperty ;
+             
+             rdfs:label "publication" ;
+             
+             dc:description "publication describes reference to a publication in which the dataset is published." ;
+             
+             rdfs:range :PublicationType ;
+             
+             rdfs:subPropertyOf :hasElement ;
+             
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( :ProteomeXchangeDatasetType
+                                         :PublicationListType
+                                       )
+                         ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#publicationList
+
+:publicationList rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:label "Publication list" ;
+                 
+                 dc:description "Publication list describes the list of publications from which the dataset was collected or wherein it is published" ;
+                 
+                 rdfs:domain :ProteomeXchangeDatasetType ;
+                 
+                 rdfs:range :PublicationListType ;
+                 
+                 rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#publicationRef
+
+:publicationRef rdf:type owl:ObjectProperty ;
+                
+                rdfs:label "publication ref" ;
+                
+                dc:description "publication ref describes to reference the 'id' of a 'Publication' within this submission" ;
+                
+                rdfs:range :RefType ;
+                
+                rdfs:domain :RepositoryRecordType ;
+                
+                rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#repositoryRecord
+
+:repositoryRecord rdf:type owl:ObjectProperty ;
+                  
+                  rdfs:label "repository record" ;
+                  
+                  dc:description "repository record describes a record in the repository the data was submitted to corresponding to this dataset (for an example PRIDE experiment record)." ;
+                  
+                  rdfs:range :RepositoryRecordType ;
+                  
+                  rdfs:subPropertyOf :hasElement ;
+                  
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( :ProteomeXchangeDatasetType
+                                              :RepositoryRecordListType
+                                            )
+                              ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#repositoryRecordList
+
+:repositoryRecordList rdf:type owl:ObjectProperty ;
+                      
+                      rdfs:label "repository record list" ;
+                      
+                      dc:description "repository record list describes the list of records as found in the repository the data was submitted to (for example PRIDE experiment records)." ;
+                      
+                      rdfs:domain :ProteomeXchangeDatasetType ;
+                      
+                      rdfs:range :RepositoryRecordListType ;
+                      
+                      rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#repositorySupport
+
+:repositorySupport rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:label "repository support" ;
+                   
+                   dc:description "repository support describes to what extend the data is supported in the hosting repository." ;
+                   
+                   rdfs:range :RepositorySupportType ;
+                   
+                   rdfs:subPropertyOf :hasElement ;
+                   
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( :DatasetSummaryType
+                                               :ProteomeXchangeDatasetType
+                                             )
+                               ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#reviewLevel
+
+:reviewLevel rdf:type owl:ObjectProperty ;
+             
+             rdfs:label "review level" ;
+             
+             dc:description "Level of review on this dataset/associated paper." ;
+             
+             rdfs:range :ReviewLevelType ;
+             
+             rdfs:subPropertyOf :hasElement ;
+             
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( :DatasetSummaryType
+                                         :ProteomeXchangeDatasetType
+                                       )
+                         ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#sample
+
+:sample rdf:type owl:ObjectProperty ;
+        
+        rdfs:label "sample" ;
+        
+        dc:description "sample describes a summary of the sample describtion. This should be a (sub) selection of cvParams used to describe the sample. Minimally this should contain information like species, tissue, etc..., but could also contain sample preparation information." ;
+        
+        rdfs:range :SampleType ;
+        
+        rdfs:subPropertyOf :hasElement ;
+        
+        rdfs:domain [ rdf:type owl:Class ;
+                      owl:unionOf ( :RepositoryRecordType
+                                    :SampleListType
+                                  )
+                    ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#sampleList
+
+:sampleList rdf:type owl:ObjectProperty ;
+            
+            rdfs:label "sample list" ;
+            
+            dc:description "sample list describes the list of samples that are analyzed in this dataset." ;
+            
+            rdfs:domain :RepositoryRecordType ;
+            
+            rdfs:range :SampleListType ;
+            
+            rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#sourceFileRef
+
+:sourceFileRef rdf:type owl:ObjectProperty ;
+               
+               rdfs:label "source file ref" ;
+               
+               dc:description "source file ref describes to reference the 'id' of a 'DatasetFile' within this submission" ;
+               
+               rdfs:range :RefType ;
+               
+               rdfs:domain :RepositoryRecordType ;
+               
+               rdfs:subPropertyOf :hasElement .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#species
+
+:species rdf:type owl:ObjectProperty ;
+         
+         rdfs:label "species" ;
+         
+         dc:description "species describes the species from which the data has been generated." ;
+         
+         rdfs:range :SpeciesType ;
+         
+         rdfs:subPropertyOf :hasElement ;
+         
+         rdfs:domain [ rdf:type owl:Class ;
+                       owl:unionOf ( :ProteomeXchangeDatasetType
+                                     :SpeciesListType
+                                   )
+                     ] .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#speciesList
+
+:speciesList rdf:type owl:ObjectProperty ;
+             
+             rdfs:label "species list" ;
+             
+             dc:description "species list describes the list of species from which the data has been generated." ;
+             
+             rdfs:domain :ProteomeXchangeDatasetType ;
+             
+             rdfs:range :SpeciesListType ;
+             
+             rdfs:subPropertyOf :hasElement .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#AdditionalInformationType
+
+:AdditionalInformationType rdf:type owl:Class ;
+                           
+                           rdfs:label "Additional Information Type" ;
+                           
+                           dc:description "Any additional annotation of the record/experiment that the submitter/generator of the message deems important enough to announce." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#ChangeLogEntryType
+
+:ChangeLogEntryType rdf:type owl:Class ;
+                    
+                    rdfs:label "Change Log Entry Type" ;
+                    
+                    dc:description "A single change log entry giving providing the date on the change, a new version number of the dataset and a description of the change/update." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#ChangeLogType
+
+:ChangeLogType rdf:type owl:Class ;
+               
+               rdfs:label "Change Log Type" ;
+               
+               dc:description "The change log message to record what changes and updates were made to this dataset for a revised announcement." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#ContactListType
+
+:ContactListType rdf:type owl:Class ;
+                 
+                 rdfs:label "Contact List Type" ;
+                 
+                 dc:description "The list of contacts related to the ProteomeXchange dataset." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#ContactType
+
+:ContactType rdf:type owl:Class ;
+             
+             rdfs:label "Contact Type" ;
+             
+             dc:description "Contact person related to the ProteomeXchange dataset." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#DatasetFileListType
+
+:DatasetFileListType rdf:type owl:Class ;
+                     
+                     rdfs:label "Dataset File List Type" ;
+                     
+                     dc:description "The list of ALL files comprising this ProteomeXchange submission." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#DatasetFileType
+
+:DatasetFileType rdf:type owl:Class ;
+                 
+                 rdfs:label "Dataset File Type" ;
+                 
+                 dc:description "Description of the source file, including location and type." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#DatasetIdentifierListType
+
+:DatasetIdentifierListType rdf:type owl:Class ;
+                           
+                           rdfs:label "Dataset Identifier List Type" ;
+                           
+                           dc:description "The list of identifiers associated with this dataset, not just the PXD identifier, but possibly DOIs and other identifiers." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#DatasetIdentifierType
+
+:DatasetIdentifierType rdf:type owl:Class ;
+                       
+                       rdfs:label "Dataset Identifier Type" ;
+                       
+                       dc:description "An identifier associated with this dataset, defined by CV term." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#DatasetOriginListType
+
+:DatasetOriginListType rdf:type owl:Class ;
+                       
+                       rdfs:label "Dataset Origin List Type" ;
+                       
+                       dc:description "The list of the origins of this dataset. This list can link to other ProteomeXchange datasets or other resources. If this dataset contains previously unreported data, then a 'new dataset' annotation should be used." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#DatasetOriginType
+
+:DatasetOriginType rdf:type owl:Class ;
+                   
+                   rdfs:label "Dataset Origin Type" ;
+                   
+                   dc:description "Specifies via CV term whether this is an original dataset or is a re-interpretation of a previous ProteomeXchange dataset." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#DatasetSummaryType
+
+:DatasetSummaryType rdf:type owl:Class ;
+                    
+                    rdfs:label "Dataset Summary Type" ;
+                    
+                    dc:description "Broad description of the dataset being announced, inlcuding a title, abstract, review level, etc." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#FullDatasetLinkListType
+
+:FullDatasetLinkListType rdf:type owl:Class ;
+                         
+                         rdfs:label "Full Dataset Link List Type" ;
+                         
+                         dc:description "The list of links to the complete ProteomeXchange dataset." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#FullDatasetLinkType
+
+:FullDatasetLinkType rdf:type owl:Class ;
+                     
+                     rdfs:label "Full Dataset Link Type" ;
+                     
+                     dc:description "A single link to the full dataset." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#HostingRepositoryType
+
+:HostingRepositoryType rdf:type owl:Class ;
+                       
+                       rdfs:label "Hosting Repository Type" ;
+                       
+                       dc:description "The hosting repository that handled this dataset and that prepared this ProteomeXchange message." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#InstrumentListType
+
+:InstrumentListType rdf:type owl:Class ;
+                    
+                    rdfs:label "Instrument List Type" ;
+                    
+                    dc:description "The list of instruments on which the data generation was performed." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#InstrumentType
+
+:InstrumentType rdf:type owl:Class ;
+                
+                rdfs:label "Instrument Type" ;
+                
+                dc:description "Instrument on which the data has been generated." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#KeywordListType
+
+:KeywordListType rdf:type owl:Class ;
+                 
+                 rdfs:label "Keyword List Type" ;
+                 
+                 dc:description "Keywords defined by controlled vocabulary or free text categorised by a controlled vocabolary term (e.g. 'journal article keyword', 'submitter keyword' or 'curator keyword')." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#KeywordType
+
+:KeywordType rdf:type owl:Class ;
+             
+             rdfs:label "Keyword Type" ;
+             
+             dc:description "Keywords defined by controlled vocabulary or free text categorised by a controlled vocabolary term (e.g. 'journal article keyword', 'submitter keyword' or 'curator keyword')." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#ModificationListType
+
+:ModificationListType rdf:type owl:Class ;
+                      
+                      rdfs:label "Modification List Type" ;
+                      
+                      dc:description "The list of amino acid mass modifications caused or considered." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#ModificationType
+
+:ModificationType rdf:type owl:Class ;
+                  
+                  rdfs:label "Modification Type" ;
+                  
+                  dc:description "The amino acid mass modifications caused or considered." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#ProteomeXchangeDatasetType
+
+:ProteomeXchangeDatasetType rdf:type owl:Class ;
+                            
+                            rdfs:label "ProteomeXchange Dataset Type" ;
+                            
+                            rdfs:subClassOf sio:SIO_000089 ;
+                            
+                            dc:description "Top-level element for a ProteomeXchange XML document describing a dataset." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#PublicationListType
+
+:PublicationListType rdf:type owl:Class ;
+                     
+                     rdfs:label "Publication List Type" ;
+                     
+                     dc:description "The list of publications from which the dataset was collected or wherein it is published" .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#PublicationType
+
+:PublicationType rdf:type owl:Class ;
+                 
+                 rdfs:label "Publication Type" ;
+                 
+                 dc:description "Reference to a publication in which the dataset is published." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#RefType
+
+:RefType rdf:type owl:Class ;
+         
+         rdfs:label "Ref Type" ;
+         
+         dc:description "to reference the 'id' of a 'DatasetFile/Publication/Instrument' within this submission" .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#RepositoryRecordListType
+
+:RepositoryRecordListType rdf:type owl:Class ;
+                          
+                          rdfs:label "Repository Record List Type" ;
+                          
+                          dc:description "The list of records as found in the repository the data was submitted to (for example PRIDE experiment records)." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#RepositoryRecordType
+
+:RepositoryRecordType rdf:type owl:Class ;
+                      
+                      rdfs:label "Repository Record Type" ;
+                      
+                      dc:description "A record in the repository the data was submitted to corresponding to this dataset (for an example PRIDE experiment record)." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#RepositorySupportType
+
+:RepositorySupportType rdf:type owl:Class ;
+                       
+                       rdfs:label "Repository Support Type" ;
+                       
+                       dc:description "To what extend the data is supported in the hosting repository." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#ReviewLevelType
+
+:ReviewLevelType rdf:type owl:Class ;
+                 
+                 rdfs:label "Review Level Type" ;
+                 
+                 owl:deprecated "Level of review on this dataset/associated paper." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#SampleListType
+
+:SampleListType rdf:type owl:Class ;
+                
+                rdfs:label "Sample List Type" ;
+                
+                dc:description "The list of samples that are analyzed in this dataset." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#SampleType
+
+:SampleType rdf:type owl:Class ;
+            
+            rdfs:label "Sample Type" ;
+            
+            dc:description "A summary of the sample describtion. This should be a (sub) selection of cvParams used to describe the sample. Minimally this should contain information like species, tissue, etc..., but could also contain sample preparation information." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#SpeciesListType
+
+:SpeciesListType rdf:type owl:Class ;
+                 
+                 rdfs:label "Species List Type" ;
+                 
+                 dc:description "The list of species from which the data has been generated." .
+
+
+
+###  https://raw.githubusercontent.com/PX-RDF/ontology/master/px.owl#SpeciesType
+
+:SpeciesType rdf:type owl:Class ;
+             
+             rdfs:label "Species Type" ;
+             
+             dc:description "The species from which the data has been generated." .
+
+
+
 
 ###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
 
